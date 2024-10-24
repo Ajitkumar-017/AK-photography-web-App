@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insert Images</title>
+</head>
+<style>
+    img {
+        height: 50px;
+        width: 50px;
+    }
+</style>
+
+<body>
+
+<h1>Upload Image</h1>
+    <form action="/insert" method="POST" enctype="multipart/form-data">
+        <label for="category">Category:</label>
+        <input type="text" id="category" name="category"><br><br>
+        <label for="location">Location:</label>
+        <input type="file" id="location" name="location"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <h1>Categories</h1>
+    <div>
+        {% for category, image_location in image_locations %}
+        <div>
+            <h2>{{ category }}</h2>
+            <img src="{{ url_for('static', filename=image_location) }}" alt="Image">
+            <form action="/delete" method="POST">
+                <input type="hidden" name="image_location" value="{{ image_location }}">
+                <input type="submit" value="Delete">
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>
